@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var button8: Button
     private lateinit var button9: Button
     private lateinit var restartButton: Button
-
+    private var temp = 0
     private var firstPlayer = ArrayList<Int>()
     private var secondPlayer = ArrayList<Int>()
 
@@ -83,11 +83,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             clickedView.text = "X"
             clickedView.setBackgroundColor(Color.RED)
             firstPlayer.add(buttonNumber)
+            temp += 1
             activePlayer = 2
         } else {
             clickedView.text = "0"
             clickedView.setBackgroundColor(Color.YELLOW)
             secondPlayer.add(buttonNumber)
+            temp += 1
             activePlayer = 1
         }
         clickedView.isEnabled = false
@@ -152,11 +154,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             winnerPlayer = 2
         }
 
+        if (temp == 9 && winnerPlayer != 1 && winnerPlayer != 2) {
+            winnerPlayer = 3
+        }
+
         if (winnerPlayer != 0) {
             if (winnerPlayer == 1) {
                 Toast.makeText(this, "X Wins!", Toast.LENGTH_LONG).show()
-            } else {
+            }
+            if (winnerPlayer == 2) {
                 Toast.makeText(this, "0 Wins!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Tie", Toast.LENGTH_LONG).show()
             }
 
             disableButtons()
@@ -206,6 +215,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7.setBackgroundColor(Color.BLUE)
         button8.setBackgroundColor(Color.BLUE)
         button9.setBackgroundColor(Color.BLUE)
+
+
+        activePlayer = 1
 
     }
 
